@@ -1,12 +1,15 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:e_commerce_app/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
+  const SignIn({super.key});
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -14,12 +17,12 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   _googleSignUp() async {
     try {
-      final GoogleSignIn _googleSignIn = GoogleSignIn(
+      final GoogleSignIn googleSignIn = GoogleSignIn(
         scopes: ['email'],
       );
-      final FirebaseAuth _auth = FirebaseAuth.instance;
+      final FirebaseAuth auth = FirebaseAuth.instance;
 
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
@@ -28,11 +31,14 @@ class _SignInState extends State<SignIn> {
         idToken: googleAuth?.idToken,
       );
 
-      final User? user = (await _auth.signInWithCredential(credential)).user;
+      final User? user = (await auth.signInWithCredential(credential)).user;
       // print("signed in " + user.displayName);
 
       return user;
-    } catch (e) {}
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
   }
 
   @override
@@ -41,31 +47,37 @@ class _SignInState extends State<SignIn> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             height: 400,
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Boho',
-                  style: TextStyle(fontSize: 50, color: Colors.white, shadows: [
-                    BoxShadow(
-                      blurRadius: 5,
-                      color: Color.fromARGB(255, 36, 9, 9),
-                      offset: Offset(3, 3),
-                    )
-                  ]),
+                Text(
+                  'Craft',
+                  style: GoogleFonts.merienda(
+                      fontSize: 50,
+                      color: Colors.white,
+                      shadows: [
+                        const BoxShadow(
+                          blurRadius: 5,
+                          color: Color.fromARGB(255, 36, 9, 9),
+                          offset: Offset(3, 3),
+                        )
+                      ]),
                 ),
-                const Text(
+                Text(
                   'Bazaar',
-                  style: TextStyle(fontSize: 50, color: Colors.white, shadows: [
-                    BoxShadow(
-                      blurRadius: 5,
-                      color: Color.fromARGB(255, 36, 9, 9),
-                      offset: Offset(3, 3),
-                    )
-                  ]),
+                  style: GoogleFonts.merienda(
+                      fontSize: 50,
+                      color: Colors.white,
+                      shadows: [
+                        const BoxShadow(
+                          blurRadius: 5,
+                          color: Color.fromARGB(255, 36, 9, 9),
+                          offset: Offset(3, 3),
+                        )
+                      ]),
                 ),
                 const SizedBox(
                   height: 30,
