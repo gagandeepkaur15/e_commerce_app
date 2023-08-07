@@ -1,5 +1,7 @@
 import 'package:e_commerce_app/screens/my_profile.dart';
 import 'package:e_commerce_app/screens/product_overview.dart';
+import 'package:e_commerce_app/screens/review_cart.dart';
+import 'package:e_commerce_app/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -28,7 +30,7 @@ class HomePage extends StatelessWidget {
                       width: 14.sp,
                     ),
                     Text(
-                      "Welcome XXX",
+                      "Welcome Gagandeep",
                       style: TextStyle(fontSize: 16.sp),
                     ),
                   ],
@@ -38,15 +40,24 @@ class HomePage extends StatelessWidget {
                 icon: Icons.home,
                 title: "Home",
               ),
-              listTile(icon: Icons.shop, title: "Review Cart"),
               InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MyProfile()));
-                  },
-                  child: listTile(icon: Icons.person, title: "My Profile")),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ReviewCart()));
+                },
+                child: listTile(icon: Icons.shop, title: "Review Cart"),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyProfile()));
+                },
+                child: listTile(icon: Icons.person, title: "My Profile"),
+              ),
               listTile(icon: Icons.notifications, title: "Notification"),
               listTile(icon: Icons.star, title: "Ratings and Review"),
               listTile(icon: Icons.favorite, title: "Wishlist"),
@@ -71,8 +82,14 @@ class HomePage extends StatelessWidget {
               child: CircleAvatar(
                 radius: 18.sp,
                 backgroundColor: const Color.fromARGB(121, 158, 158, 158),
-                child: Icon(
-                  Icons.search,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Search()));
+                  },
+                  icon: const Icon(Icons.search),
                   color: Colors.grey.shade900,
                 ),
               ),
@@ -253,7 +270,7 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Lights',
+                      'Flower Pots',
                       style: TextStyle(fontSize: 17.sp),
                     ),
                     Text(

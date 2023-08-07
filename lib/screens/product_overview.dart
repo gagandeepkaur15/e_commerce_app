@@ -87,13 +87,13 @@ class _ProductOverviewState extends State<ProductOverview> {
             child: SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(15.0.sp),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
                       title: Text(
-                        widget.productName ?? "",
+                        widget.productName,
                         style: TextStyle(fontSize: 20.sp),
                       ),
                       subtitle: Row(
@@ -110,23 +110,25 @@ class _ProductOverviewState extends State<ProductOverview> {
                       ),
                     ),
                     Container(
-                      height: 330,
-                      padding: const EdgeInsets.all(40),
+                      height: 45.h,
+                      padding: EdgeInsets.all(25.sp),
                       child: Image(
-                        image: AssetImage(widget.productImage ?? ""),
+                        image: AssetImage(widget.productImage),
                       ),
                     ),
-                    const Text(
+                    Text(
                       'About This Product',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 1.h,
                     ),
-                    const Text(
+                    Text(
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 17.sp),
                       textAlign: TextAlign.justify,
                     ),
                   ],

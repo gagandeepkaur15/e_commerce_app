@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MyProfile extends StatelessWidget {
   const MyProfile({super.key});
@@ -10,20 +12,24 @@ class MyProfile extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
           'My Profile',
-          style: TextStyle(color: Colors.black),
+          style: GoogleFonts.merienda(color: Colors.black, fontSize: 17.sp),
         ),
       ),
       body: Column(
         children: [
           Container(
-            height: 170,
-            decoration: const BoxDecoration(
+            height: 17.h,
+            decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
+                bottomLeft: Radius.circular(30.sp),
+                bottomRight: Radius.circular(30.sp),
               ),
             ),
             child: Row(
@@ -31,46 +37,47 @@ class MyProfile extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 40, 20, 10),
                   child: CircleAvatar(
-                    radius: 50,
+                    radius: 30.sp,
                     backgroundColor: Colors.grey.shade300,
-                    child: const Icon(
+                    child: Icon(
                       Icons.person_outline,
-                      size: 67,
+                      size: 37.sp,
                       color: Colors.black,
                     ),
                   ),
                 ),
-                const Column(
+                Column(
                   children: [
                     SizedBox(
-                      height: 70,
+                      height: 7.h,
                     ),
                     Text(
                       'Gagandeep Kaur',
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: 17.sp),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 1.h,
                     ),
-                    Text('gagandeep4989@gmail.com')
+                    Text(
+                      'gagandeep4989@gmail.com',
+                      style: TextStyle(fontSize: 17.sp),
+                    )
                   ],
                 ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 5.h),
           listTile(Icons.shopping_basket_outlined, 'My Orders'),
-          const SizedBox(height: 8),
+          SizedBox(height: 2.h),
           listTile(Icons.location_on_outlined, 'My Delivery Address'),
-          const SizedBox(height: 8),
+          SizedBox(height: 2.h),
           listTile(Icons.file_copy_outlined, 'Terms and Conditions'),
-          const SizedBox(height: 8),
+          SizedBox(height: 2.h),
           listTile(Icons.policy_outlined, 'Privacy Policy'),
-          const SizedBox(height: 8),
+          SizedBox(height: 2.h),
           listTile(Icons.add_chart, 'About'),
-          const SizedBox(height: 8),
+          SizedBox(height: 2.h),
           listTile(Icons.exit_to_app_outlined, 'Log Out'),
         ],
       ),
