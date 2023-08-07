@@ -4,7 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ProductOverview extends StatefulWidget {
   final String productName;
-  final int productPrice;
+  final String productPrice;
   final String productImage;
 
   const ProductOverview(

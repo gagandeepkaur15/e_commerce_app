@@ -1,17 +1,36 @@
+import 'package:e_commerce_app/providers/product_provider.dart';
 import 'package:e_commerce_app/screens/my_profile.dart';
 import 'package:e_commerce_app/screens/product_overview.dart';
 import 'package:e_commerce_app/screens/review_cart.dart';
 import 'package:e_commerce_app/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../widgets/item_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late ProductProvider productProvider;
+
+  @override
+  void initState() {
+    ProductProvider productProvider = Provider.of(context, listen: false);
+    productProvider.fetchMadhubaniArtData();
+    productProvider.fetchLightData();
+    productProvider.fetchFlowerPotData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    productProvider = Provider.of(context);
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       drawer: Drawer(
@@ -133,88 +152,28 @@ class HomePage extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
-                    InkWell(
+                  children: productProvider.getMadhubaniArtList.map((data) {
+                    return InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ProductOverview(
-                              productName: 'Wall Art',
-                              productPrice: 1999,
-                              productImage: 'assets/madhubani/one.jpg',
+                            builder: (context) => ProductOverview(
+                              productName: data.productName,
+                              productPrice: data.productPrice,
+                              productImage: data.productImage,
                             ),
                           ),
                         );
                       },
                       child: ItemCard(
-                        productImage: 'assets/madhubani/one.jpg',
-                        productNAme: 'Wall Art',
-                        productPrice: '1999',
+                        productImage: data!.productImage,
+                        productNAme: data.productName,
+                        productPrice: data.productPrice.toString(),
                         onTap: () {},
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProductOverview(
-                              productName: 'Elephant Art',
-                              productPrice: 550,
-                              productImage: 'assets/madhubani/two.webp',
-                            ),
-                          ),
-                        );
-                      },
-                      child: ItemCard(
-                        productImage: 'assets/madhubani/two.webp',
-                        productNAme: 'Elephant Art',
-                        productPrice: '550',
-                        onTap: () {},
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProductOverview(
-                              productName: 'Lamp',
-                              productPrice: 1800,
-                              productImage: 'assets/madhubani/three.jpg',
-                            ),
-                          ),
-                        );
-                      },
-                      child: ItemCard(
-                        productImage: 'assets/madhubani/three.jpg',
-                        productNAme: 'Lamp',
-                        productPrice: '1800',
-                        onTap: () {},
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProductOverview(
-                              productName: 'Necklace',
-                              productPrice: 400,
-                              productImage: 'assets/madhubani/four.webp',
-                            ),
-                          ),
-                        );
-                      },
-                      child: ItemCard(
-                        productImage: 'assets/madhubani/four.webp',
-                        productNAme: 'Necklace',
-                        productPrice: '400',
-                        onTap: () {},
-                      ),
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 ),
               ),
               Padding(
@@ -236,32 +195,28 @@ class HomePage extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
-                    ItemCard(
-                      productImage: 'assets/madhubani/tree_lamp.jpg',
-                      productNAme: 'Tree Lamp',
-                      productPrice: '1800',
-                      onTap: () {},
-                    ),
-                    ItemCard(
-                      productImage: 'assets/madhubani/pendant_lamp.jpg',
-                      productNAme: 'Pendant Lamp',
-                      productPrice: '1300',
-                      onTap: () {},
-                    ),
-                    ItemCard(
-                      productImage: 'assets/madhubani/paper_lamps.webp',
-                      productNAme: 'Paper Lamps',
-                      productPrice: '1900',
-                      onTap: () {},
-                    ),
-                    ItemCard(
-                      productImage: 'assets/madhubani/glass_lamp.jpg',
-                      productNAme: 'Glass Lamp',
-                      productPrice: '999',
-                      onTap: () {},
-                    ),
-                  ],
+                  children: productProvider.getLightList.map((data) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductOverview(
+                              productName: data.productName,
+                              productPrice: data.productPrice,
+                              productImage: data.productImage,
+                            ),
+                          ),
+                        );
+                      },
+                      child: ItemCard(
+                        productImage: data!.productImage,
+                        productNAme: data.productName,
+                        productPrice: data.productPrice.toString(),
+                        onTap: () {},
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
               Padding(
@@ -283,26 +238,28 @@ class HomePage extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
-                    ItemCard(
-                      productNAme: 'Chitrakari Pots',
-                      productPrice: '700',
-                      productImage: 'assets/madhubani/plant1.png',
-                      onTap: () {},
-                    ),
-                    ItemCard(
-                      productNAme: 'Peacock Pot',
-                      productPrice: '820',
-                      productImage: 'assets/madhubani/plant2.png',
-                      onTap: () {},
-                    ),
-                    ItemCard(
-                      productNAme: 'Ceramic Pot',
-                      productPrice: '600',
-                      productImage: 'assets/madhubani/plant3.png',
-                      onTap: () {},
-                    ),
-                  ],
+                  children: productProvider.getflowerPotList.map((data) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductOverview(
+                              productName: data.productName,
+                              productPrice: data.productPrice,
+                              productImage: data.productImage,
+                            ),
+                          ),
+                        );
+                      },
+                      child: ItemCard(
+                        productImage: data!.productImage,
+                        productNAme: data.productName,
+                        productPrice: data.productPrice.toString(),
+                        onTap: () {},
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
               const SizedBox(
