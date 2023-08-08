@@ -32,9 +32,15 @@ class ReviewCart extends StatelessWidget {
           ),
           SingleItem(
             isBool: true,
+            productImage: "assets/madhubani/one.jpg",
+            productName: "One",
+            productPrice: '1',
           ),
           SingleItem(
             isBool: true,
+            productImage: "assets/madhubani/one.jpg",
+            productName: "One",
+            productPrice: '1',
           ),
           SizedBox(
             height: 1.h,

@@ -3,11 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ProductProvider with ChangeNotifier {
-  List<ProductModel?> madhubaniArtList = [];
   ProductModel? productModel;
-
+  List<ProductModel?> madhubaniArtList = [];
   List<ProductModel?> lightList = [];
-
   List<ProductModel?> flowerPotList = [];
 
   fetchMadhubaniArtData() async {

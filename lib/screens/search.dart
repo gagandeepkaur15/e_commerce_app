@@ -1,12 +1,19 @@
+import 'package:e_commerce_app/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'single_item.dart';
 
-class Search extends StatelessWidget {
-  const Search({super.key});
+class Search extends StatefulWidget {
+  List<ProductModel?> search;
+  Search({super.key, required this.search});
 
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,20 +93,15 @@ class Search extends StatelessWidget {
           SizedBox(
             height: 1.2.h,
           ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
+          Column(
+            children: widget.search.map((data) {
+              return SingleItem(
+                isBool: false,
+                productImage: data!.productImage,
+                productName: data.productName,
+                productPrice: data.productPrice,
+              );
+            }).toList(),
           ),
         ],
       ),

@@ -3,7 +3,16 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SingleItem extends StatelessWidget {
   bool isBool = false;
-  SingleItem({super.key, required this.isBool});
+  String productImage;
+  String productName;
+  String productPrice;
+
+  SingleItem(
+      {super.key,
+      required this.isBool,
+      required this.productImage,
+      required this.productName,
+      required this.productPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +28,7 @@ class SingleItem extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(9.sp),
                     child: Center(
-                      child: Image.asset("assets/madhubani/one.jpg"),
+                      child: Image.asset(productImage),
                     ),
                   ),
                 ),
@@ -34,9 +43,10 @@ class SingleItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "productName",
+                            productName,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -50,7 +60,7 @@ class SingleItem extends StatelessWidget {
                                     color: Colors.grey, fontSize: 16.sp),
                               ),
                               Text(
-                                "1999",
+                                productPrice,
                                 style: TextStyle(
                                     color: Colors.grey, fontSize: 16.sp),
                               ),

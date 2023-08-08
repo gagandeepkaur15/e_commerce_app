@@ -106,7 +106,9 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Search()));
+                            builder: (context) => Search(
+                                  search: [],
+                                )));
                   },
                   icon: const Icon(Icons.search),
                   color: Colors.grey.shade900,
@@ -142,9 +144,21 @@ class _HomePageState extends State<HomePage> {
                       'Madhubani Art',
                       style: TextStyle(fontSize: 17.sp),
                     ),
-                    Text(
-                      'View All',
-                      style: TextStyle(fontSize: 17.sp),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Search(
+                              search: productProvider.getMadhubaniArtList,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'View All',
+                        style: TextStyle(fontSize: 17.sp),
+                      ),
                     ),
                   ],
                 ),
@@ -185,9 +199,21 @@ class _HomePageState extends State<HomePage> {
                       'Lights',
                       style: TextStyle(fontSize: 17.sp),
                     ),
-                    Text(
-                      'View All',
-                      style: TextStyle(fontSize: 17.sp),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Search(
+                              search: productProvider.getLightList,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'View All',
+                        style: TextStyle(fontSize: 17.sp),
+                      ),
                     ),
                   ],
                 ),
@@ -228,9 +254,21 @@ class _HomePageState extends State<HomePage> {
                       'Flower Pots',
                       style: TextStyle(fontSize: 17.sp),
                     ),
-                    Text(
-                      'View All',
-                      style: TextStyle(fontSize: 17.sp),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Search(
+                              search: productProvider.getflowerPotList,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'View All',
+                        style: TextStyle(fontSize: 17.sp),
+                      ),
                     ),
                   ],
                 ),
