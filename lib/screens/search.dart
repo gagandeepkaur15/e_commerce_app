@@ -5,6 +5,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'single_item.dart';
 
+enum SinginCharacter { lowToHigh, highToLow, alphabetically }
+
 class Search extends StatefulWidget {
   List<ProductModel?> search;
   Search({super.key, required this.search});
@@ -14,8 +16,20 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  String query = '';
+  SinginCharacter _character = SinginCharacter.alphabetically;
+
+  // Search item from the list provided in constructor
+  List<ProductModel?> searchItem(String query) {
+    List<ProductModel?> searchFood = widget.search.where((element) {
+      return element!.productName.toLowerCase().contains(query);
+    }).toList();
+    return searchFood;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<ProductModel?> _searchItem = searchItem(query);
     return Scaffold(
       bottomNavigationBar: ListTile(
         title: Text(
@@ -72,9 +86,16 @@ class _SearchState extends State<Search> {
       body: ListView(
         children: [
           Container(
-            height: 52,
+            height: 6.h,
             margin: EdgeInsets.symmetric(horizontal: 5.w),
             child: TextField(
+              //onChanged and not controller since we want string and not controller return type
+              onChanged: (value) {
+                print(value);
+                setState(() {
+                  query = value;
+                });
+              },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -94,7 +115,7 @@ class _SearchState extends State<Search> {
             height: 1.2.h,
           ),
           Column(
-            children: widget.search.map((data) {
+            children: _searchItem.map((data) {
               return SingleItem(
                 isBool: false,
                 productImage: data!.productImage,

@@ -107,7 +107,8 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => Search(
-                                  search: [],
+                                  search: productProvider.getAllProducts,
+                                  // search: productProvider.gerAllProductSearch,
                                 )));
                   },
                   icon: const Icon(Icons.search),

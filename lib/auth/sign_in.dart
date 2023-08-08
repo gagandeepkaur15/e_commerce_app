@@ -1,11 +1,13 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -15,6 +17,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  UserProvider? userProvider;
   _googleSignUp() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -31,8 +34,15 @@ class _SignInState extends State<SignIn> {
         idToken: googleAuth?.idToken,
       );
 
+      // ADD USER DATA TO USER DATA COLLECTION IN FIREBASE
+
       final User? user = (await auth.signInWithCredential(credential)).user;
       // print("signed in " + user.displayName);
+      userProvider!.addUserData(
+          currentUser: user,
+          userName: user!.displayName,
+          userEmail: user.email,
+          userImage: user.photoURL);
 
       return user;
     } catch (e) {
@@ -43,6 +53,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
