@@ -7,6 +7,7 @@ import 'single_item.dart';
 
 enum SinginCharacter { lowToHigh, highToLow, alphabetically }
 
+// ignore: must_be_immutable
 class Search extends StatefulWidget {
   List<ProductModel?> search;
   Search({super.key, required this.search});
@@ -17,7 +18,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   String query = '';
-  SinginCharacter _character = SinginCharacter.alphabetically;
+  // SinginCharacter _character = SinginCharacter.alphabetically;
 
   // Search item from the list provided in constructor
   List<ProductModel?> searchItem(String query) {
@@ -51,6 +52,17 @@ class _SearchState extends State<Search> {
           child: OutlinedButton(
             onPressed: () {},
             style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.hovered)) {
+                    return Colors.grey.shade800; // Color when hovered
+                  }
+                  if (states.contains(MaterialState.pressed)) {
+                    return Colors.grey.shade800; // Color when pressed
+                  }
+                  return Colors.grey.shade900; // Default color
+                },
+              ),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.sp),
@@ -59,7 +71,7 @@ class _SearchState extends State<Search> {
             ),
             child: Text(
               "Next",
-              style: TextStyle(color: Colors.grey.shade900, fontSize: 16.5.sp),
+              style: TextStyle(color: Colors.white, fontSize: 16.5.sp),
             ),
           ),
         ),

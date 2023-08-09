@@ -182,7 +182,8 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       child: ItemCard(
-                        productImage: data!.productImage,
+                        productId: data!.productId,
+                        productImage: data.productImage,
                         productNAme: data.productName,
                         productPrice: data.productPrice.toString(),
                         onTap: () {},
@@ -237,7 +238,8 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       child: ItemCard(
-                        productImage: data!.productImage,
+                        productId: data!.productId,
+                        productImage: data.productImage,
                         productNAme: data.productName,
                         productPrice: data.productPrice.toString(),
                         onTap: () {},
@@ -292,7 +294,8 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       child: ItemCard(
-                        productImage: data!.productImage,
+                        productId: data!.productId,
+                        productImage: data.productImage,
                         productNAme: data.productName,
                         productPrice: data.productPrice.toString(),
                         onTap: () {},
@@ -303,7 +306,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(
                 height: 20,
-              )
+              ),
             ],
           ),
         ),

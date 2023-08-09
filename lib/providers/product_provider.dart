@@ -18,6 +18,7 @@ class ProductProvider with ChangeNotifier {
         productImage: element.get("productImage"),
         productName: element.get("productName"),
         productPrice: element.get("productPrice"),
+        productId: element.get("productId"),
       );
       madhubaniArtList.add(productModel);
     });
@@ -38,6 +39,7 @@ class ProductProvider with ChangeNotifier {
         productImage: element.get("productImage"),
         productName: element.get("productName"),
         productPrice: element.get("productPrice"),
+        productId: element.get("productId"),
       );
       lightList.add(productModel);
     });
@@ -58,6 +60,7 @@ class ProductProvider with ChangeNotifier {
         productImage: element.get("productImage"),
         productName: element.get("productName"),
         productPrice: element.get("productPrice"),
+        productId: element.get("productId"),
       );
       flowerPotList.add(productModel);
     });
@@ -81,6 +84,7 @@ class ProductProvider with ChangeNotifier {
       productImage: element.get("productImage"),
       productName: element.get("productName"),
       productPrice: element.get("productPrice"),
+      productId: element.get("productId"),
     );
     search.add(productModel);
   }

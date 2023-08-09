@@ -1,7 +1,9 @@
+import 'package:e_commerce_app/widgets/count.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ItemCard extends StatelessWidget {
+  final String productId;
   final String productImage;
   final String productNAme;
   final String productPrice;
@@ -9,6 +11,7 @@ class ItemCard extends StatelessWidget {
 
   const ItemCard({
     super.key,
+    required this.productId,
     required this.productImage,
     required this.productNAme,
     required this.productPrice,
@@ -60,46 +63,14 @@ class ItemCard extends StatelessWidget {
                       productPrice,
                       style: TextStyle(fontSize: 16.sp),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 3.h,
-                        width: 18.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade900),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Add',
-                            style: TextStyle(fontSize: 16.sp),
-                          ),
-                        ),
-                      ),
-                    ),
                     SizedBox(
-                      width: 1.w,
+                      width: 6.w,
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 3.h,
-                        width: 16.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade900),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '- 1 +',
-                            style: TextStyle(fontSize: 16.sp),
-                          ),
-                        ),
-                      ),
+                    Count(
+                      productId: productId,
+                      productName: productNAme,
+                      productPrice: productPrice,
+                      productImage: productImage,
                     ),
                   ],
                 ),
