@@ -1,6 +1,9 @@
+import 'package:e_commerce_app/model/review_cart_model.dart';
+import 'package:e_commerce_app/providers/review_cart_provider.dart';
 import 'package:e_commerce_app/screens/single_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ReviewCart extends StatelessWidget {
@@ -8,6 +11,8 @@ class ReviewCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ReviewCartProvider reviewCartProvider = Provider.of(context);
+    reviewCartProvider.getReviewCartData();
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
@@ -25,28 +30,35 @@ class ReviewCart extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 1.h,
-          ),
-          SingleItem(
-            isBool: true,
-            productImage: "assets/madhubani/one.jpg",
-            productName: "One",
-            productPrice: '1',
-          ),
-          SingleItem(
-            isBool: true,
-            productImage: "assets/madhubani/one.jpg",
-            productName: "One",
-            productPrice: '1',
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-        ],
-      ),
+      body: reviewCartProvider.getReviewCartDataList.isEmpty
+          ? Center(
+              child: Text(
+                'No Data',
+                style: TextStyle(fontSize: 18.sp),
+              ),
+            )
+          : ListView.builder(
+              itemCount: reviewCartProvider.getReviewCartDataList.length,
+              itemBuilder: (context, index) {
+                ReviewCartModel data =
+                    reviewCartProvider.getReviewCartDataList[index];
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    SingleItem(
+                      isBool: true,
+                      productImage: data.cartImage,
+                      productName: data.cartName,
+                      productPrice: data.cartPrice,
+                      productId: data.cartId,
+                      productQuantity: data.cartQuantity,
+                    ),
+                  ],
+                );
+              },
+            ),
     );
   }
 }

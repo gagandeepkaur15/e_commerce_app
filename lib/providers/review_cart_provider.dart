@@ -46,7 +46,7 @@ class ReviewCartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  get getReviewCartDataList {
+  List<ReviewCartModel> get getReviewCartDataList {
     return reviewCartDataList;
   }
 }
