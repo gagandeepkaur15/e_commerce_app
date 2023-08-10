@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+// ignore: must_be_immutable
 class Count extends StatefulWidget {
   String productName;
   String productImage;
@@ -47,7 +48,7 @@ class _CountState extends State<Count> {
                             isTrue = false;
                             count--;
                           });
-                        } else {
+                        } else if (count > 1) {
                           setState(() {
                             count--;
                           });
@@ -89,7 +90,7 @@ class _CountState extends State<Count> {
                           cartName: widget.productName,
                           cartImage: widget.productImage,
                           cartPrice: widget.productPrice,
-                          cartQuantity: count.toString());   
+                          cartQuantity: count.toString());
                     },
                     child: Text(
                       'ADD',
