@@ -7,12 +7,48 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ReviewCart extends StatelessWidget {
-  const ReviewCart({super.key});
+  late ReviewCartProvider reviewCartProvider;
+
+  showAlertDialog(BuildContext context, ReviewCartModel delete) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: const Text("Yes"),
+      onPressed: () {
+        reviewCartProvider.reviewCartDataDelete(delete.cartId);
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Cart Product"),
+      content: const Text("Are you devete on cartProduct?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    ReviewCartProvider reviewCartProvider = Provider.of(context);
+    reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
+
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
@@ -54,6 +90,9 @@ class ReviewCart extends StatelessWidget {
                       productPrice: data.cartPrice,
                       productId: data.cartId,
                       productQuantity: data.cartQuantity,
+                      onDelete: () {
+                        showAlertDialog(context, data);
+                      },
                     ),
                   ],
                 );

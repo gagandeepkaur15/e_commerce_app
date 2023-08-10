@@ -63,7 +63,9 @@ class _CountState extends State<Count> {
                     Text(
                       count.toString(),
                       style: TextStyle(
-                          fontSize: 16.sp, color: Colors.green.shade700),
+                        fontSize: 16.sp,
+                        color: Colors.green.shade700,
+                      ),
                     ),
                     InkWell(
                       onTap: () {
@@ -86,11 +88,12 @@ class _CountState extends State<Count> {
                         isTrue = true;
                       });
                       reviewCartProvider.addReviewCartData(
-                          cartId: widget.productId,
-                          cartName: widget.productName,
-                          cartImage: widget.productImage,
-                          cartPrice: widget.productPrice,
-                          cartQuantity: count.toString());
+                        cartId: widget.productId,
+                        cartName: widget.productName,
+                        cartImage: widget.productImage,
+                        cartPrice: widget.productPrice,
+                        cartQuantity: count.toString(),
+                      );
                     },
                     child: Text(
                       'ADD',

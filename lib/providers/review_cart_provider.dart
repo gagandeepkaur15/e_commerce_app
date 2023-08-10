@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../model/review_cart_model.dart';
 
 class ReviewCartProvider with ChangeNotifier {
+  //Add Data
   void addReviewCartData({
     required String? cartId,
     required String? cartName,
@@ -26,8 +27,10 @@ class ReviewCartProvider with ChangeNotifier {
     });
   }
 
+  //Get data in list
   List<ReviewCartModel> reviewCartDataList = [];
   void getReviewCartData() async {
+    List<ReviewCartModel> newList = [];
     QuerySnapshot reviewCartData = await FirebaseFirestore.instance
         .collection("ReviewCart")
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -41,12 +44,24 @@ class ReviewCartProvider with ChangeNotifier {
         cartPrice: element.get("cartPrice"),
         cartQuantity: element.get("cartQuantity"),
       );
-      reviewCartDataList.add(reviewCartModel);
+      newList.add(reviewCartModel);
     });
+    reviewCartDataList = newList;
     notifyListeners();
   }
 
   List<ReviewCartModel> get getReviewCartDataList {
     return reviewCartDataList;
+  }
+
+  //Delete Function
+  reviewCartDataDelete(cartId) {
+    FirebaseFirestore.instance
+        .collection("ReviewCart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourReviewCart")
+        .doc(cartId)
+        .delete();
+    notifyListeners();
   }
 }

@@ -9,6 +9,7 @@ class SingleItem extends StatelessWidget {
   String productPrice;
   String productId;
   String productQuantity;
+  Function onDelete;
 
   SingleItem({
     super.key,
@@ -18,6 +19,7 @@ class SingleItem extends StatelessWidget {
     required this.productPrice,
     required this.productId,
     this.productQuantity = '',
+    this.onDelete = _defaultDeleteFunction,
   });
 
   @override
@@ -147,10 +149,17 @@ class SingleItem extends StatelessWidget {
                         )
                       : Column(
                           children: [
-                            const Icon(
-                              Icons.delete,
-                              size: 30,
-                              color: Colors.black,
+                            InkWell(
+                              onTap: () {
+                                onDelete();
+                                print(":::::::::::::::");
+                                print(":::::::::::::::");
+                              },
+                              child: const Icon(
+                                Icons.delete,
+                                size: 30,
+                                color: Colors.black,
+                              ),
                             ),
                             const SizedBox(
                               height: 5,
@@ -194,6 +203,10 @@ class SingleItem extends StatelessWidget {
       ],
     );
   }
+}
+
+void _defaultDeleteFunction() {
+  print('Default delete called');
 }
 
 //Not fully responsive
