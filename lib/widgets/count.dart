@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/providers/review_cart_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -23,11 +25,33 @@ class Count extends StatefulWidget {
 }
 
 class _CountState extends State<Count> {
-  int count = 1;
+  int count = 0;
   bool isTrue = false;
+
+  getAddAndQuantity() {
+    FirebaseFirestore.instance
+        .collection("ReviewCart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourReviewCart")
+        .doc(widget.productId)
+        .get()
+        .then((value) => {
+              if (this.mounted)
+                {
+                  if (value.exists)
+                    {
+                      setState(() {
+                        count = int.tryParse(value.get("cartQuantity")) ?? 0;
+                        isTrue = value.get("isAdd");
+                      })
+                    }
+                }
+            });
+  }
 
   @override
   Widget build(BuildContext context) {
+    getAddAndQuantity();
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     return Container(
       height: 4.5.h,
@@ -48,10 +72,19 @@ class _CountState extends State<Count> {
                             isTrue = false;
                             count--;
                           });
+                          reviewCartProvider
+                              .reviewCartDataDelete(widget.productId);
                         } else if (count > 1) {
                           setState(() {
                             count--;
                           });
+                          reviewCartProvider.updateReviewCartData(
+                            cartId: widget.productId,
+                            cartName: widget.productName,
+                            cartImage: widget.productImage,
+                            cartPrice: widget.productPrice,
+                            cartQuantity: count.toString(),
+                          );
                         }
                       },
                       child: Icon(
@@ -72,6 +105,13 @@ class _CountState extends State<Count> {
                         setState(() {
                           count++;
                         });
+                        reviewCartProvider.updateReviewCartData(
+                          cartId: widget.productId,
+                          cartName: widget.productName,
+                          cartImage: widget.productImage,
+                          cartPrice: widget.productPrice,
+                          cartQuantity: count.toString(),
+                        );
                       },
                       child: Icon(
                         Icons.add,

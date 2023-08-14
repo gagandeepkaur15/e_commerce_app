@@ -152,8 +152,6 @@ class SingleItem extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 onDelete();
-                                print(":::::::::::::::");
-                                print(":::::::::::::::");
                               },
                               child: const Icon(
                                 Icons.delete,
@@ -165,23 +163,32 @@ class SingleItem extends StatelessWidget {
                               height: 5,
                             ),
                             Container(
-                              height: 25,
-                              width: 70,
+                              height: 4.5.h,
+                              width: 70.w,
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               child: Center(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                    Icon(Icons.add,
-                                        color: Colors.grey.shade900, size: 20),
+                                    Icon(
+                                      Icons.remove,
+                                      color: Colors.grey.shade900,
+                                      size: 20,
+                                    ),
                                     const Text(
                                       "ADD",
                                       style: TextStyle(
                                         color: Colors.black,
                                       ),
+                                    ),
+                                    Icon(
+                                      Icons.add,
+                                      color: Colors.grey.shade900,
+                                      size: 20,
                                     ),
                                   ],
                                 ),

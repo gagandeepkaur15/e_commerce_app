@@ -1,10 +1,17 @@
+import 'package:e_commerce_app/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class MyProfile extends StatelessWidget {
-  const MyProfile({super.key});
+class MyProfile extends StatefulWidget {
+  UserModel userData;
+  MyProfile({super.key, required this.userData});
 
+  @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,33 +41,34 @@ class MyProfile extends StatelessWidget {
             ),
             child: Row(
               children: [
+                SizedBox(
+                  width: 2.w,
+                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 40, 20, 10),
                   child: CircleAvatar(
-                    radius: 30.sp,
+                    radius: 25.sp,
                     backgroundColor: Colors.grey.shade300,
-                    child: Icon(
-                      Icons.person_outline,
-                      size: 37.sp,
-                      color: Colors.black,
-                    ),
+                    backgroundImage: NetworkImage(widget.userData.userImage),
                   ),
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 7.h,
                     ),
                     Text(
-                      'Gagandeep Kaur',
-                      style: TextStyle(fontSize: 17.sp),
+                      widget.userData.userName,
+                      style: TextStyle(
+                          fontSize: 17.sp, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 1.h,
                     ),
                     Text(
-                      'gagandeep4989@gmail.com',
-                      style: TextStyle(fontSize: 17.sp),
+                      widget.userData.userEmail,
+                      style: TextStyle(fontSize: 15.sp),
                     )
                   ],
                 ),

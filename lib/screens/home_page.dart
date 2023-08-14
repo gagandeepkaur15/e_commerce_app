@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/providers/product_provider.dart';
+import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/screens/my_profile.dart';
 import 'package:e_commerce_app/screens/product_overview.dart';
 import 'package:e_commerce_app/screens/review_cart.dart';
@@ -31,6 +32,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     productProvider = Provider.of(context);
+    UserProvider userProvider = Provider.of(context);
+    userProvider.getUserData();
+    var userData = userProvider.currentUserData;
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       drawer: Drawer(
@@ -43,14 +47,21 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.grey.shade200,
-                      maxRadius: 28.sp,
+                      maxRadius: 25.sp,
+                      backgroundImage: NetworkImage(userData!.userImage),
                     ),
                     SizedBox(
                       width: 14.sp,
                     ),
-                    Text(
-                      "Welcome Gagandeep",
-                      style: TextStyle(fontSize: 16.sp),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(userData.userName,
+                            style: (TextStyle(fontSize: 16.sp))),
+                        Text(userData.userEmail,
+                            style: (TextStyle(fontSize: 16.sp))),
+                      ],
                     ),
                   ],
                 ),
@@ -71,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const MyProfile()));
+                          builder: (context) => MyProfile(userData:userData)));
                 },
                 child: listTile(icon: Icons.person, title: "My Profile"),
               ),
