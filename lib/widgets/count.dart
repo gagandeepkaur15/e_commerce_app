@@ -25,7 +25,7 @@ class Count extends StatefulWidget {
 }
 
 class _CountState extends State<Count> {
-  int count = 0;
+  int count = 1;
   bool isTrue = false;
 
   getAddAndQuantity() {
@@ -126,6 +126,7 @@ class _CountState extends State<Count> {
                     onTap: () {
                       setState(() {
                         isTrue = true;
+                        count = 1;
                       });
                       reviewCartProvider.addReviewCartData(
                         cartId: widget.productId,

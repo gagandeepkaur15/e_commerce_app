@@ -1,7 +1,9 @@
 import 'package:e_commerce_app/model/review_cart_model.dart';
 import 'package:e_commerce_app/providers/review_cart_provider.dart';
+import 'package:e_commerce_app/screens/delivery_details.dart';
 import 'package:e_commerce_app/screens/single_item.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -78,14 +80,15 @@ class _ReviewCartState extends State<ReviewCart> {
               ),
             ),
             onPressed: () {
-              // if(reviewCartProvider.getReviewCartDataList.isEmpty){
-              //   return Fluttertoast.showToast(msg: "No Cart Data Found");
-              // }
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => DeliveryDetails(),
-              //   ),
-              // );
+              if (reviewCartProvider.getReviewCartDataList.isEmpty) {
+                Fluttertoast.showToast(msg: "No Cart Data Found");
+              } else {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const DeliveryDetails(),
+                  ),
+                );
+              }
             },
             child: Text(
               "Submit",
