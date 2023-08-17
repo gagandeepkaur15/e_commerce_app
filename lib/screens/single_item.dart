@@ -1,8 +1,11 @@
+import 'package:e_commerce_app/providers/review_cart_provider.dart';
+import 'package:e_commerce_app/widgets/count.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 // ignore: must_be_immutable
-class SingleItem extends StatelessWidget {
+class SingleItem extends StatefulWidget {
   bool isBool = false;
   String productImage;
   String productName;
@@ -23,7 +26,28 @@ class SingleItem extends StatelessWidget {
   });
 
   @override
+  State<SingleItem> createState() => _SingleItemState();
+}
+
+class _SingleItemState extends State<SingleItem> {
+  ReviewCartProvider? reviewCartProvider;
+
+  int count = 0;
+  getCount() {
+    setState(() {
+      count = int.parse(widget.productQuantity);
+    });
+  }
+
+  // @override
+  // void initState() {
+  //   getCount();
+  //   super.initState();
+  // }
+
+  @override
   Widget build(BuildContext context) {
+    getCount();
     return Column(
       children: [
         Padding(
@@ -36,7 +60,7 @@ class SingleItem extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(9.sp),
                     child: Center(
-                      child: Image.asset(productImage),
+                      child: Image.asset(widget.productImage),
                     ),
                   ),
                 ),
@@ -45,7 +69,7 @@ class SingleItem extends StatelessWidget {
                 child: SizedBox(
                   height: 10.h,
                   child: Column(
-                    mainAxisAlignment: isBool == false
+                    mainAxisAlignment: widget.isBool == false
                         ? MainAxisAlignment.spaceAround
                         : MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +78,7 @@ class SingleItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            productName,
+                            widget.productName,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -68,7 +92,7 @@ class SingleItem extends StatelessWidget {
                                     color: Colors.grey, fontSize: 16.sp),
                               ),
                               Text(
-                                productPrice,
+                                widget.productPrice,
                                 style: TextStyle(
                                     color: Colors.grey, fontSize: 16.sp),
                               ),
@@ -76,7 +100,7 @@ class SingleItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      isBool == false
+                      widget.isBool == false
                           ? Container(
                               margin: EdgeInsets.only(right: 5.w),
                               padding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -106,13 +130,14 @@ class SingleItem extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : Text(
-                              "1 pc",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16.sp,
-                              ),
-                            ),
+                          : Container(),
+                      // : Text(
+                      //     "1 pc",
+                      //     style: TextStyle(
+                      //       color: Colors.grey,
+                      //       fontSize: 16.sp,
+                      //     ),
+                      //   ),
                     ],
                   ),
                 ),
@@ -120,10 +145,10 @@ class SingleItem extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 90,
-                  padding: isBool == false
+                  padding: widget.isBool == false
                       ? EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.5.h)
                       : EdgeInsets.only(left: 1.5.h, right: 1.5.h),
-                  child: isBool == false
+                  child: widget.isBool == false
                       ? Container(
                           height: 25,
                           width: 50,
@@ -151,7 +176,7 @@ class SingleItem extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                onDelete();
+                                widget.onDelete();
                               },
                               child: const Icon(
                                 Icons.delete,
@@ -174,26 +199,69 @@ class SingleItem extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Icon(
-                                      Icons.remove,
-                                      color: Colors.grey.shade900,
-                                      size: 20,
+                                    InkWell(
+                                      onTap: () {
+                                        if (count == 1) {
+                                          Fluttertoast.showToast(
+                                              msg: "You reached minimum limit");
+                                        } else {
+                                          setState(() {
+                                            count--;
+                                          });
+                                          reviewCartProvider!
+                                              .updateReviewCartData(
+                                            cartId: widget.productId,
+                                            cartName: widget.productName,
+                                            cartImage: widget.productImage,
+                                            cartPrice: widget.productPrice,
+                                            cartQuantity: count.toString(),
+                                          );
+                                        }
+                                      },
+                                      child: Icon(
+                                        Icons.remove,
+                                        color: Colors.grey.shade900,
+                                        size: 20,
+                                      ),
                                     ),
-                                    const Text(
-                                      "ADD",
-                                      style: TextStyle(
+                                    Text(
+                                      count.toString(),
+                                      style: const TextStyle(
                                         color: Colors.black,
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.add,
-                                      color: Colors.grey.shade900,
-                                      size: 20,
+                                    InkWell(
+                                      onTap: () {
+                                        if (count < 5) {
+                                          setState(() {
+                                            count++;
+                                          });
+                                          reviewCartProvider!
+                                              .updateReviewCartData(
+                                            cartId: widget.productId,
+                                            cartName: widget.productName,
+                                            cartImage: widget.productImage,
+                                            cartPrice: widget.productPrice,
+                                            cartQuantity: count.toString(),
+                                          );
+                                        }
+                                      },
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.grey.shade900,
+                                        size: 20,
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            )
+                            ),
+                            // Count(
+                            //   productId: widget.productId,
+                            //   productName: widget.productName,
+                            //   productPrice: widget.productPrice,
+                            //   productImage: widget.productImage,
+                            // ),
                           ],
                         ),
                 ),
@@ -201,7 +269,7 @@ class SingleItem extends StatelessWidget {
             ],
           ),
         ),
-        isBool == false
+        widget.isBool == false
             ? Container()
             : const Divider(
                 height: 1,

@@ -1,13 +1,16 @@
+import 'package:e_commerce_app/providers/review_cart_provider.dart';
 import 'package:e_commerce_app/widgets/count.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class ItemCard extends StatelessWidget {
+class ItemCard extends StatefulWidget {
   final String productId;
   final String productImage;
   final String productNAme;
   final String productPrice;
   final Function onTap;
+  final String productQuantity;
 
   const ItemCard({
     super.key,
@@ -16,14 +19,23 @@ class ItemCard extends StatelessWidget {
     required this.productNAme,
     required this.productPrice,
     required this.onTap,
+    this.productQuantity='',
   });
 
   @override
+  State<ItemCard> createState() => _ItemCardState();
+}
+
+class _ItemCardState extends State<ItemCard> {
+  ReviewCartProvider? reviewCartProvider;
+  @override
   Widget build(BuildContext context) {
+    reviewCartProvider = Provider.of<ReviewCartProvider>(context);
+    reviewCartProvider!.getReviewCartData();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: InkWell(
-        onTap: onTap(),
+        onTap: widget.onTap(),
         child: Container(
           height: 25.h,
           width: 40.w,
@@ -43,13 +55,13 @@ class ItemCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: AssetImage(productImage),
+                      image: AssetImage(widget.productImage),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 Text(
-                  productNAme,
+                  widget.productNAme,
                   style:
                       TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                 ),
@@ -60,17 +72,17 @@ class ItemCard extends StatelessWidget {
                       style: TextStyle(fontSize: 16.sp),
                     ),
                     Text(
-                      productPrice,
+                      widget.productPrice,
                       style: TextStyle(fontSize: 16.sp),
                     ),
                     SizedBox(
                       width: 6.w,
                     ),
                     Count(
-                      productId: productId,
-                      productName: productNAme,
-                      productPrice: productPrice,
-                      productImage: productImage,
+                      productId: widget.productId,
+                      productName: widget.productNAme,
+                      productPrice: widget.productPrice,
+                      productImage: widget.productImage,
                     ),
                   ],
                 ),

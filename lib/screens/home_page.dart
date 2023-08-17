@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MyProfile(userData:userData)));
+                          builder: (context) => MyProfile(userData: userData)));
                 },
                 child: listTile(icon: Icons.person, title: "My Profile"),
               ),
@@ -130,8 +130,16 @@ class _HomePageState extends State<HomePage> {
               child: CircleAvatar(
                 radius: 18.sp,
                 backgroundColor: const Color.fromARGB(121, 158, 158, 158),
-                child: Icon(
-                  Icons.shopping_bag_outlined,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReviewCart(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.shopping_bag_outlined),
                   color: Colors.grey.shade900,
                 ),
               ),
