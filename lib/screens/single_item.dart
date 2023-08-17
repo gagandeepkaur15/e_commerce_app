@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/providers/review_cart_provider.dart';
-import 'package:e_commerce_app/widgets/count.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

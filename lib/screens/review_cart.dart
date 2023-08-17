@@ -6,7 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class ReviewCart extends StatelessWidget {
+class ReviewCart extends StatefulWidget {
+  @override
+  State<ReviewCart> createState() => _ReviewCartState();
+}
+
+class _ReviewCartState extends State<ReviewCart> {
   late ReviewCartProvider reviewCartProvider;
 
   showAlertDialog(BuildContext context, ReviewCartModel delete) {
@@ -28,7 +33,7 @@ class ReviewCart extends StatelessWidget {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text("Cart Product"),
-      content: const Text("Are you devete on cartProduct?"),
+      content: const Text("Sure you want to delete this product?"),
       actions: [
         cancelButton,
         continueButton,
@@ -51,6 +56,44 @@ class ReviewCart extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
+      bottomNavigationBar: ListTile(
+        title: Text(
+          "Total Amount",
+          style: TextStyle(fontSize: 17.sp),
+        ),
+        subtitle: Text(
+          "\₹ ${reviewCartProvider.getTotalPrice()}",
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp),
+        ),
+        trailing: SizedBox(
+          width: 160,
+          child: MaterialButton(
+            color: Colors.grey.shade900,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                30,
+              ),
+            ),
+            onPressed: () {
+              // if(reviewCartProvider.getReviewCartDataList.isEmpty){
+              //   return Fluttertoast.showToast(msg: "No Cart Data Found");
+              // }
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => DeliveryDetails(),
+              //   ),
+              // );
+            },
+            child: Text(
+              "Submit",
+              style: TextStyle(fontSize: 17.sp, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(

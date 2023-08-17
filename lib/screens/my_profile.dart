@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+// ignore: must_be_immutable
 class MyProfile extends StatefulWidget {
   UserModel userData;
   MyProfile({super.key, required this.userData});
