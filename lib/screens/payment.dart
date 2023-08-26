@@ -1,6 +1,7 @@
 //Not Responsive
 import 'package:e_commerce_app/providers/review_cart_provider.dart';
 import 'package:e_commerce_app/screens/my_google_pay.dart';
+import 'package:e_commerce_app/screens/upi_payment.dart';
 import 'package:e_commerce_app/widgets/order_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,9 +53,15 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           child: MaterialButton(
             onPressed: () {
               myType == PaymentType.Online
+                  // ? Navigator.of(context).push(
+                  //     MaterialPageRoute(
+                  //       builder: (context) =>
+                  //           MyGooglePay(total: total.toString()),
+                  //     ),
+                  //   )
                   ? Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => MyGooglePay(total: total),
+                        builder: (context) => const UpiPayment(),
                       ),
                     )
                   : Container();

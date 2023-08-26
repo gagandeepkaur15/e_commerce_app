@@ -47,6 +47,7 @@ dependencies:
   fluttertoast: ^8.2.2
   cloud_firestore: ^4.8.4
   pay: ^1.1.2
+  upi_india: ^3.0.1
 
 dev_dependencies:
   flutter_test:
