@@ -1,7 +1,9 @@
+import 'package:e_commerce_app/model/review_cart_model.dart';
 import 'package:flutter/material.dart';
 
 class OrderItem extends StatelessWidget {
-  OrderItem({super.key});
+  final ReviewCartModel e;
+  OrderItem({super.key, required this.e});
 
   bool? isTrue;
 
@@ -9,27 +11,27 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Image.asset(
-        "assets/madhubani/plant1.png",
+        e.cartImage,
         width: 60,
       ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Wall art",
+            e.cartName,
             style: TextStyle(
               color: Colors.grey[600],
             ),
           ),
           Text(
-            "Rs 2000",
+            e.cartPrice,
             style: TextStyle(
                 // color: Colors.grey[600],
                 ),
           ),
         ],
       ),
-      subtitle: Text("5"),
+      subtitle: Text(e.cartQuantity),
     );
   }
 }

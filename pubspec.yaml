@@ -46,6 +46,7 @@ dependencies:
   responsive_sizer: ^3.1.1
   fluttertoast: ^8.2.2
   cloud_firestore: ^4.8.4
+  pay: ^1.1.2
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,7 @@ flutter:
   assets:
     - assets/images/
     - assets/madhubani/
+    - assets/sample_payment_configuration.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

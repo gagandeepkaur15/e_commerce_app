@@ -207,6 +207,7 @@ class _SingleItemState extends State<SingleItem> {
                                           setState(() {
                                             count--;
                                           });
+
                                           reviewCartProvider!
                                               .updateReviewCartData(
                                             cartId: widget.productId,
@@ -231,10 +232,15 @@ class _SingleItemState extends State<SingleItem> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        if (count < 5) {
-                                          setState(() {
-                                            count++;
-                                          });
+                                        print("Tapped Icon");
+                                        setState(() {
+                                          count++;
+                                          print("Count: $count");
+                                        });
+
+                                        print("Updating Cart Data");
+                                        if (reviewCartProvider != null) {
+                                          print("Inside update function");
                                           reviewCartProvider!
                                               .updateReviewCartData(
                                             cartId: widget.productId,

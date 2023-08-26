@@ -1,8 +1,10 @@
 //Not Responsive
-
+import 'package:e_commerce_app/providers/review_cart_provider.dart';
+import 'package:e_commerce_app/screens/my_google_pay.dart';
 import 'package:e_commerce_app/widgets/order_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class PaymentSummary extends StatefulWidget {
@@ -22,12 +24,24 @@ class _PaymentSummaryState extends State<PaymentSummary> {
 
   @override
   Widget build(BuildContext context) {
+    ReviewCartProvider reviewCartProvider = Provider.of(context);
+    reviewCartProvider.getReviewCartData();
+
+    double discount = 0.00;
+    double shippingCharge = 0.0;
+    double subTotal = reviewCartProvider.getTotalPrice();
+    if (subTotal < 300) {
+      shippingCharge = 0.00;
+    }
+    double discountedVal = (subTotal * discount) / 100;
+    double total = subTotal - discountedVal + shippingCharge;
+
     return Scaffold(
       bottomNavigationBar: ListTile(
         title: const Text('Total Amount'),
-        subtitle: const Text(
-          '300',
-          style: TextStyle(
+        subtitle: Text(
+          total.toString() ?? subTotal.toString(),
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 17,
@@ -36,7 +50,15 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         trailing: SizedBox(
           width: 160,
           child: MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              myType == PaymentType.Online
+                  ? Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MyGooglePay(total: total),
+                      ),
+                    )
+                  : Container();
+            },
             color: Colors.grey[900],
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -70,27 +92,24 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   ),
                   const Divider(),
                   ExpansionTile(
-                    title: const Text("Order 5 items"),
-                    children: [
-                      OrderItem(),
-                      OrderItem(),
-                      OrderItem(),
-                      OrderItem(),
-                      OrderItem(),
-                    ],
+                    title: Text(
+                        "Order ${reviewCartProvider.getReviewCartDataList.length} items"),
+                    children: reviewCartProvider.getReviewCartDataList.map((e) {
+                      return OrderItem(e: e);
+                    }).toList(),
                   ),
                   const Divider(),
-                  const ListTile(
+                  ListTile(
                     minVerticalPadding: 5,
-                    leading: Text(
+                    leading: const Text(
                       "Sub Total",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     trailing: Text(
-                      "Rs 200",
-                      style: TextStyle(
+                      subTotal.toString(),
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -102,7 +121,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                       style: TextStyle(),
                     ),
                     trailing: Text(
-                      "Rs 0",
+                      "0.00",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
